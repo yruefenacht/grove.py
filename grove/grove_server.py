@@ -29,8 +29,7 @@ def main():
             while True:
                 distance = sonar.get_distance()
                 print('Sending {} cm'.format(distance))
-                data = struct.pack('!d', distance)
-                connection.sendall(data)
+                connection.sendall(str(distance))
 
 if __name__ == '__main__':
     main()
