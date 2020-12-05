@@ -6,6 +6,7 @@
 
 import socket
 import struct
+import time
 import grove_ultrasonic_ranger
 
 HOST = '192.168.3.10'
@@ -27,9 +28,10 @@ def main():
         with connection:
             print('Connected with ', address)
             while True:
-                distance = sonar.get_distance()
+                distance = int(sonar.get_distance())
                 print('Sending {} cm'.format(distance))
                 connection.send(str(distance).encode())
+                time.sleep(0.1)
 
 if __name__ == '__main__':
     main()
