@@ -29,7 +29,7 @@ def main():
             while True:
                 distance = sonar.get_distance()
                 print('Sending {} cm'.format(distance))
-                connection.sendall(str(distance))
+                connection.send(str(distance).encode())
 
 if __name__ == '__main__':
     main()
