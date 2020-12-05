@@ -5,7 +5,7 @@
 
 import socket
 
-HOST = '10.0.2.15'
+HOST = '192.168.3.10'
 PORT = 65432
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
