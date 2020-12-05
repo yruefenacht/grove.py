@@ -5,6 +5,7 @@
 # BFH
 
 import socket
+import struct
 import grove_ultrasonic_ranger
 
 HOST = '192.168.3.10'
@@ -28,7 +29,8 @@ def main():
             while True:
                 distance = sonar.get_distance()
                 print('Sending {} cm'.format(distance))
-                connection.sendall(distance)
+                data = struct.pack('!d', distance)
+                connection.sendall(data)
 
 if __name__ == '__main__':
     main()
