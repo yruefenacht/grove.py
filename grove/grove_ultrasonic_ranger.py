@@ -100,7 +100,7 @@ def main():
     pin = sh.argv2pin()
 
     sonar = GroveUltrasonicRanger(pin)
-
+    print("Grove Ultrasonic Ranger")
     print('Detecting distance...')
     while True:
         print('{} cm'.format(sonar.get_distance()))
