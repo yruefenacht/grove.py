@@ -93,7 +93,7 @@ class GroveUltrasonicRanger(object):
 
 Grove = GroveUltrasonicRanger
 
-
+'''
 def main():
     from grove.helper import SlotHelper
     sh = SlotHelper(SlotHelper.GPIO)
@@ -108,4 +108,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+'''
 
