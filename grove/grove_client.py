@@ -13,6 +13,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
     while True:
         data = s.recv(1024)
-        distance = struct.unpack('!d', repr(data))
+        distance = struct.unpack('!d', data)
         print(distance)
 
