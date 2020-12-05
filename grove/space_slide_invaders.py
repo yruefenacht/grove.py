@@ -15,9 +15,8 @@ class App(Frame):
 
     def update_distance(self):
         distance = self.client.get_distance()
-        print(str(distance))
         self.distance_label.configure(text=str(distance))
-        self.after(500, self.update_distance)
+        self.after(100, self.update_distance)
 
 root = Tk()
 app = App(root)
