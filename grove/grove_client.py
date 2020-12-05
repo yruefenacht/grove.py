@@ -9,9 +9,10 @@ import struct
 HOST = '192.168.3.10'
 PORT = 65432
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
-    while True:
-        distance = s.recv(1024).decode()
-        print(distance)
+class GroveClient:
+    def __init__(self):
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.connect((HOST, PORT))
+    def get_distance(self):
+        return self.s.recv(1024).decode()
 
