@@ -1,35 +1,86 @@
 #!/bin/usr/env python
 
-from tkinter import *
+import pygame
+import os
+import time
+import random
 import grove_client
 
-class App(Frame):
-    def __init__(self, master=None):
-        Frame.__init__(self, master)
-        self.master = master
-        self.distance_label = Label(text="Distance")
-        self.distance_label.place(x=50,y=50)
+pygame.font.init()
 
-    def set_client(self, client):
-        self.client = client
+WIDTH, HEIGHT = 750, 750
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    def update_distance(self):
-        distance = self.client.get_distance()
-        print(distance)
-        self.distance_label.configure(text=str(distance))
-        self.after(100, self.update_distance)
+# Load assets
+PLAYER_SHIP = pygame.image.load(os.path.join("grove", "assets", "space_player_ship.png"))
+BG = pygame.transform.scale(pygame.image.load(os.path.join("grove", "assets", "space_bg.png")), (WIDTH,HEIGHT))
 
-root = Tk()
-app = App(root)
+class Entity:
+	def __init__(self, x, y, img):
+		self.x = x
+		self.y = y
+		self.img = img
+		self.mask = pygame.mask.from_surface(self.img)
+		
+	def draw(self, window):
+		window.blit(self.img, (self.x, self.y))
+		
+	def get_width(self):
+		return self.img.get_width()
+	
+	def get_height(self):
+		return self.img.get_height()
+		
 
-try:
-    client = grove_client.GroveClient()
-    app.set_client(client)
-    app.update_distance()
-except:
-    print("Client connection could not be established")
-
-root.wm_title("Space Slide Invaders")
-root.geometry("500x200")
-root.mainloop()
+def main():
+	run = True
+	FPS = 60
+	score = 0
+	main_font = pygame.font.SysFont("comicsans", 50)
+	
+	player_vel = 5
+	
+	player = Entity(350, 600, PLAYER_SHIP)
+	
+	clock = pygame.time.Clock()
+	
+	client = None
+	
+	try:
+		client = grove_client.GroveClient()
+	except:
+		print("Client connection could not be established")
+	
+	def redraw_window():
+		WIN.blit(BG, (0, 0))
+		
+		score_label = main_font.render(f"Score: {score}", 1, (255, 255, 255))
+		WIN.blit(score_label, (10, 10))
+		
+		player.draw(WIN)
+		
+		pygame.display.update()
+	
+	while run:
+		clock.tick(FPS)
+		redraw_window()
+		
+		# Events
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				run = False
+		
+		# Movement keyboard
+		keys = pygame.key.get_pressed()
+		if keys[pygame.K_LEFT] and player.x - player_vel > 0:
+			player.x -= player_vel
+		if keys[pygame.K_RIGHT] and player.x + player_vel + player.get_width() < WIDTH:
+			player.x += player_vel
+			
+		# Movement sensor
+		if client is not None:
+			distance = self.client.get_distance()
+			player.x = distance
+				
+main()
 
