@@ -10,9 +10,12 @@ Python library for Seeedstudio Grove Devices on embeded Linux platform, especial
 - [Raspberry Pi](https://www.seeedstudio.com/category/Boards-c-17.html) [(Wiki)](http://wiki.seeedstudio.com/Grove_Base_Hat_for_Raspberry_Pi/#software)
 
 <br><br>
-## Installation on Raspberry Pi
+## Installation on Raspberry Pi and Host
+### Install pygame
+```shell
+python3 -m pip install -U pygame --user
+```
 ### Install grove.py
-From source code
 ```shell
 git clone https://github.com/yruefenacht/grove.py
 cd grove.py
@@ -24,9 +27,13 @@ sudo pip3 install .
 
 <br><br>
 ## Usage
-Run Ultrasonic Ranger
+Run grove server on Raspberry
+```shell
+python grove/grove_server.py 5 6
 ```
-python grove/grove_ultrasonic_ranger.py 5 6
+Run space slide invaders on Host
+```shell
+python grove/space_slide_invaders.py
 ```
 
 <br><br>
