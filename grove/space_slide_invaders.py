@@ -87,8 +87,8 @@ def main():
 		
 		pygame.display.update()
 	
-	counter = 0
-	enemy_spawn_frequency = 100
+	enemy_spawn_frequency = 20
+	counter = enemy_spawn_frequency
 	prev_distance = 0
 	
 	while run:
@@ -128,7 +128,7 @@ def main():
 		if client is not None:
 			distance = int(client.get_distance())
 			movement = abs(distance - prev_distance)
-			if movement < 50:
+			if movement < 50 and distance <= SENSOR_WIDTH:
 				player.x = distance * int(WIDTH/SENSOR_WIDTH)
 			prev_distance = distance
 			
