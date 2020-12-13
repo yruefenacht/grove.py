@@ -10,6 +10,7 @@ pygame.font.init()
 
 WIDTH, HEIGHT = 750, 750
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+SENSOR_WIDTH = 40
 
 # Load assets
 PLAYER_SHIP = pygame.image.load(os.path.join("grove", "assets", "space_player_ship.png"))
@@ -88,6 +89,7 @@ def main():
 	
 	counter = 0
 	enemy_spawn_frequency = 100
+	prev_distance = 0
 	
 	while run:
 		clock.tick(FPS)
@@ -124,8 +126,11 @@ def main():
 			
 		# Movement sensor
 		if client is not None:
-			distance = self.client.get_distance()
-			player.x = distance
+			distance = int(client.get_distance())
+			movement = abs(distance - prev_distance)
+			if movement < 50:
+				player.x = distance * int(WIDTH/SENSOR_WIDTH)
+			prev_distance = distance
 			
 		# Movement enemies
 		for enemy in enemies[:]:
