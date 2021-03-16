@@ -12,6 +12,7 @@ Python library for Seeedstudio Grove Devices on embeded Linux platform, especial
 <br><br>
 ## The Idea
 The thought was to integrate some IOT-device into a small game. In this project, a distance sensor is used to track the player's physical position. This position is then applied to the game's space ship character, that way, the player can move a digital object with real life body movements.
+
 ![](images/idea.png)
 
 <br><br>
@@ -26,11 +27,13 @@ The thought was to integrate some IOT-device into a small game. In this project,
 <br><br>
 ## Data Communication
 The Raspberry (which is connected to the sensor) sends the sensor data through a socket connection to the host. When the host runs the game (grove/space_slide_invaders.py) it fetches the sensor data through the client script (grove/grove_client.py) and applies it to the game character.
+
 ![](images/setup_tcp.jpg)
 
 <br><br>
 ## The Final Look of the Game
 When everything is up and running, the yellow space ship should be controllable by the player's body movements, by moving closer to or farther away from the Ultrasonic ranger sensor.  
+
 <img src="images/setup_pygame.jpg" width="450"/>
 
 <br><br>
